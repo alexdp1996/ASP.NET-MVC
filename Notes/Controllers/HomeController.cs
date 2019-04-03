@@ -60,6 +60,11 @@ namespace Notes.Controllers
         [HttpPost]
         public ActionResult Edit(Note model)
         {
+            if (!ModelState.IsValid)
+            {
+                ModelState.AddModelError("Caption", "Caption cant be empty");
+                return View(model);
+            }
             var note = Notes.First(n => n.Id == model.Id);
             note.Caption = model.Caption;
             note.Text = model.Text;
